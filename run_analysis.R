@@ -59,6 +59,27 @@ tidyData1 <- fullData[,cols]
 ## Part 3 - Uses descriptive activity names to name the activities in the data 
 ##          set
 
+## Read the file with the activities codes and names
+file<-"/Users/Huascar/Getting & Cleaning Data/activity_labels.txt"
+activities<-read.table(file, col.names = c("ActivityCode", "ActivityName"))
+## Merge activities with tidyData1
+tidyData1 <- arrange(join(activities, tidyData1), ActivityCode)
 
 ## Part 4 - Appropriately label the data set with descriptive variable names
+
+## Improve understanding of column names by removing parenthesis. To keep 
+## good readability of column names, will not remove uppercase letters. 
+names(tidyData1)<-gsub("\\(","",names(tidyData1))
+names(tidyData1)<-gsub("\\)","",names(tidyData1))
+
+## Parts 1 - 4: write tidyData1 file as a txt file in order to upload to
+##              Coursera
+file<-"~/Getting & Cleaning Data/GettingCleaningDataProject/tidyData1.txt"
+write.table(tidyData1, 
+            file="./tidyData1.txt",
+            row.names = FALSE)
+
+## Part 5 - Creates a second, independent tidy data set with the average of 
+##          each variable for each activity and each subject. 
+
 
